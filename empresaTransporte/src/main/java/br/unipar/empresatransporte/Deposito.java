@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
 public class Deposito {
 
 
-    private Stack<Produto>[] pilhasDeProdutos;
+    private Stack<Produto>[] pilhasProduto;
 
     public Deposito() {
-        pilhasDeProdutos = new Stack[5];
+        pilhasProduto = new Stack[5]; //Um array de pilhas (Stack) que armazenará os produtos
         for (int i = 0; i < 5; i++) {
-            pilhasDeProdutos[i] = new Stack<>();
+            pilhasProduto[i] = new Stack<>();
         }
     }
 
@@ -29,8 +29,8 @@ public class Deposito {
             return;
         }
 
-        if (pilhasDeProdutos[indicePilha].size() < 10) {
-            pilhasDeProdutos[indicePilha].push(produto);
+        if (pilhasProduto[indicePilha].size() < 10) {
+            pilhasProduto[indicePilha].push(produto); //PUSH: insere um elemento no topo da pilha se não estiver cheio
             JOptionPane.showMessageDialog(null, "Produto adicionado à pilha " + (indicePilha + 1) + ":\n" + produto);
         } else {
             JOptionPane.showMessageDialog(null, "A pilha " + (indicePilha + 1) + " está cheia. Não é possível adicionar mais produtos.");
@@ -39,13 +39,13 @@ public class Deposito {
     }
 
     public void listarProdutos() {
-        StringBuilder estadoPilhas = new StringBuilder();
+        StringBuilder estadoPilhas = new StringBuilder(); //Usei um StringBuilder para montar uma string que representa o estado de cada pilha.
         for (int i = 0; i < 5; i++) {
             estadoPilhas.append("Pilha ").append(i + 1).append(":\n");
-            if (pilhasDeProdutos[i].isEmpty()) {
+            if (pilhasProduto[i].isEmpty()) {
                 estadoPilhas.append("  Vazia\n");
             } else {
-                for (Produto produto : pilhasDeProdutos[i]) {
+                for (Produto produto : pilhasProduto[i]) {
                     estadoPilhas.append("  ").append(produto).append("\n");
                 }
             }
@@ -60,10 +60,10 @@ public class Deposito {
             return;
         }
 
-        if (pilhasDeProdutos[indicePilha].isEmpty()) {
+        if (pilhasProduto[indicePilha].isEmpty()) {
             JOptionPane.showMessageDialog(null, "A pilha " + (indicePilha + 1) + " está vazia. Nenhum produto para retirar.");
         } else {
-            Produto produtoRemovido = pilhasDeProdutos[indicePilha].pop();
+            Produto produtoRemovido = pilhasProduto[indicePilha].pop(); //POP: remove um elemento no topo da pilha;
             JOptionPane.showMessageDialog(null, "Produto retirado da pilha " + (indicePilha + 1) + ":\n" + produtoRemovido);
         }
         listarProdutos();
